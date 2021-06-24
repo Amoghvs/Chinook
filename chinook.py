@@ -134,7 +134,7 @@ genre_vs_length_df=run_query(genre_vs_length)
 
 #bar plot
 
-plt.figure(figsize=(10,10))
+plt.figure(figsize=(15,15))
 ax=sns.barplot(x='Name', y='minutes',data=genre_vs_length_df)
 #displaying the bar chart values.
 for bar in ax.patches:
@@ -171,7 +171,7 @@ GROUP BY Type'''
 
 media_type_size_df=run_query(media_type_size)
 
-plt.figure(figsize=(10,10))
+plt.figure(figsize=(20,20))
 ax=sns.barplot(x='Type', y='Size',data=media_type_size_df)
 #displaying the bar chart values.
 for bar in ax.patches:
@@ -791,7 +791,7 @@ my_file='Czech Republic Genre Taste'
 czec_rep_genre_df=run_query(czec_rep_genre)
 czec_rep_genre_df.to_csv(results_dir+'Czech_republic_genre.csv',index=False)
 
-plt.figure(figsize=(10,12))
+plt.figure(figsize=(15,15))
 plt.bar(x='genre',height='num_sold',data=czec_rep_genre_df)
 plt.xticks(rotation=45)
 plt.xticks(fontsize=15)
@@ -993,6 +993,4 @@ FROM sales_rep sr
 INNER JOIN employees e ON sr.SupportRepId = e.EmployeeId
 GROUP BY 1;
 '''
-
 emp_df=run_query(employee_sales_performance)
-
