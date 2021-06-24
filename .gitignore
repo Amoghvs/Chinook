@@ -3,7 +3,7 @@ bin-debug/
 bin-release/
 [Oo]bj/
 [Bb]in/
-
+chinook2.db
 # Other files and folders
 .settings/
 
