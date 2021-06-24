@@ -144,11 +144,12 @@ for bar in ax.patches:
                    size=15, xytext=(0, 8),
                    textcoords='offset points')
 #Rotating the x ticks labels by 90 degree
-plt.xticks(rotation=90)
+plt.xticks(rotation=45)
+plt.xticks(size = 15)
 #Title of the plot
 plt.title("Genre vs Length of track in minutes")
 # X axis Label
-plt.xlabel("Name")
+plt.xlabel("Genre")
 #yaxis Label
 plt.ylabel("Minutes")
 #saving the plot to results directory
@@ -181,6 +182,7 @@ for bar in ax.patches:
                    textcoords='offset points')
 #Rotating the x ticks labels by 90 degree
 plt.xticks(rotation=45)
+plt.xticks(size = 15)
 #Title of the plot
 plt.title("Media Type vs Size in MB")
 # X axis Label
@@ -200,6 +202,7 @@ plt.show()
 song_details='''
 SELECT
   t.Name AS Song,
+  ar.Name as ArtistName,
   a.Title as Album,
   mt.Name AS MediaType,
   g.Name AS Genre,
@@ -208,6 +211,7 @@ SELECT
 FROM tracks t
 LEFT JOIN media_types mt on mt.MediaTypeId = t.MediaTypeId
 LEFT JOIN albums a ON a.AlbumId = t.AlbumId
+LEFT JOIN artists ar ON a.ArtistId=ar.ArtistId
 LEFT JOIN genres g ON g.GenreId = t.GenreId'''
 
 # saving the dataframe to csv file
@@ -444,7 +448,7 @@ ORDER BY Price DESC LIMIT 5;"""
 genre_vs_sales_df=run_query(genre_vs_sales)
     
 #pie Chart of Genre vs Sales
-plt.figure(figsize=(7,7))
+plt.figure(figsize=(7,7))   
 plt.pie('Price', labels='Name',autopct=lambda pct: func(pct, genre_vs_sales_df['Price']), shadow=True, startangle=140,data=genre_vs_sales_df)
 plt.title("Top 5 Genres by Sales",y=1.07)
 plt.axis('equal')
@@ -469,15 +473,15 @@ ORDER BY sales DESC;'''
 sales_vs_city_df=run_query(sales_vs_city).head(10)
 
 plt.figure(figsize=(10,10))
-
 ax=sns.barplot(x='City', y='sales',data=sales_vs_city_df)
 for bar in ax.patches:
     ax.annotate(format(bar.get_height(), '.2f'), 
                    (bar.get_x() + bar.get_width() / 2, 
                     bar.get_height()), ha='center', va='center',
-                   size=15, xytext=(0, 8),
+                   size=12, xytext=(0, 8),
                    textcoords='offset points')
-plt.xticks(rotation=90)
+plt.xticks(rotation=45)
+plt.xticks(size = 15)
 plt.title("Top 10 Cities By Sales")
 plt.xlabel("City")
 plt.ylabel("Sales")
@@ -526,8 +530,7 @@ most_sales_by_agent_df=run_query(most_sales_by_agent)
 
 #Pie chart distribution of sales agent's performace
 plt.figure(figsize=(10,10))
-plt.pie('Total Sales', labels='Sales Agent',autopct=lambda pct: func(pct, most_sales_by_agent_df['Total Sales']), shadow=True, startangle=140,data=most_sales_by_agent_df)
-plt.title("by Agent",y=1.07)
+plt.pie('Total Sales', labels='Sales Agent',textprops={'fontsize': 14},autopct=lambda pct: func(pct, most_sales_by_agent_df['Total Sales']), shadow=True, startangle=140,data=most_sales_by_agent_df)
 plt.axis('equal')
 plt.savefig(results_dir+'sales_by_agents')
 plt.show()
@@ -692,7 +695,8 @@ for bar in ax.patches:
                     bar.get_height()), ha='center', va='center',
                    size=15, xytext=(0, 8),
                    textcoords='offset points')
-plt.xticks(rotation=90)
+plt.xticks(rotation=45)
+plt.xticks(size=12)
 plt.title("Country vs Customers")
 plt.xlabel("Country")
 plt.ylabel("No of Customers")
@@ -711,7 +715,8 @@ for bar in ax.patches:
                     bar.get_height()), ha='center', va='center',
                    size=15, xytext=(0, 8),
                    textcoords='offset points')
-plt.xticks(rotation=90)
+plt.xticks(rotation=45)
+plt.xticks(size=12)
 plt.title("Country vs Sales")
 plt.xlabel("Country")
 plt.ylabel("Sales in $")
@@ -728,11 +733,11 @@ for bar in ax.patches:
                     bar.get_height()), ha='center', va='center',
                    size=15, xytext=(0, 8),
                    textcoords='offset points')
-plt.xticks(rotation=90)
-plt.title("Country vs Avg Sales by Customer")
+plt.xticks(rotation=45)
+plt.title("Country vs Avg Sales per Customer")
 plt.xlabel("Country")
 plt.ylabel("Sales in $")
-plt.savefig(results_dir+'Avg_Cust_sales')
+plt.savefig(results_dir+'Avg_sales_per_Customer')
 plt.show()
 
 #avg Transaction
@@ -745,11 +750,11 @@ for bar in ax.patches:
                     bar.get_height()), ha='center', va='center',
                    size=15, xytext=(0, 8),
                    textcoords='offset points')
-plt.xticks(rotation=90)
-plt.title("Country vs Avg Sales Transaction")
+plt.xticks(rotation=45)
+plt.title("Country vs Avg Order Value")
 plt.xlabel("Country")
 plt.ylabel("Sales in $")
-plt.savefig(results_dir+'avg_sales_transc')
+plt.savefig(results_dir+'Avg_Order_Value')
 plt.show()
 
 
@@ -789,6 +794,7 @@ czec_rep_genre_df.to_csv(results_dir+'Czech_republic_genre.csv',index=False)
 plt.figure(figsize=(10,12))
 plt.bar(x='genre',height='num_sold',data=czec_rep_genre_df)
 plt.xticks(rotation=45)
+plt.xticks(fontsize=15)
 plt.title("Czech Republic Genre Taste")
 plt.xlabel("Genre")
 plt.ylabel("Number of copies sold")
