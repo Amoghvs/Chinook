@@ -690,7 +690,7 @@ country_study_df.to_csv(results_dir+'country_study.csv',index=False)
 plt.figure(figsize=(10,10))
 ax=sns.barplot(x='Country', y='No_of_Customers',data=country_study_df)
 for bar in ax.patches:
-    ax.annotate(format(bar.get_height(), '.2f'), 
+    ax.annotate(int(bar.get_height()), 
                    (bar.get_x() + bar.get_width() / 2, 
                     bar.get_height()), ha='center', va='center',
                    size=15, xytext=(0, 8),
