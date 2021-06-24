@@ -463,7 +463,7 @@ plt.show()
 sales_vs_city='''
 SELECT 
     i.BillingCity AS City, 
-    Sum(i.Total) AS sales 
+    Sum(it.UnitPrice) AS sales 
 FROM invoices i
 INNER JOIN invoice_items it ON i.InvoiceId=it.InvoiceId 
 GROUP BY City 
